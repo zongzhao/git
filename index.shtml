@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Vue组件</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' *.meituan.net *.meituan.com https://*.meituan.net https://*.meituan.com *.sankuai.com *.sankuai.info *.dper.com www.google-analytics.com 'unsafe-inline' 'unsafe-eval' map.baidu.com api.map.baidu.com *.map.bdimg.com *.amap.com *.autonavi.com *.sankuai.club blob: data: ws://vdata.amap.com;">
+  <link rel="stylesheet" href="/static/ui/css/base.css" />
+  <link rel="stylesheet" href="/static/page/doc/vue-style.css" />
+  <link rel="shortcut icon" href="/static/page/doc/images/vue.png">
+  <!--#include file="/page/inc/config.htm"-->
+  <script type="text/javascript" src="/static/lib/polyfill.min.js"></script>
+  <script type="text/javascript" src="/static/lib/lib-all-tiny.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/doc/index">
+            <img alt="Brand" height=20 src="/static/page/doc/images/vue.png">
+            Vue.js
+          </a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li v-for="nav in navInfo.list" :class="{'active': navInfo.active === nav.id, 'dropdown': nav.dropList.length}">
+              <a v-if="nav.dropList.length" class="dropdown-toggle" data-toggle="dropdown" :href="nav.url">
+                 {{nav.name}}<span class="caret"></span>
+              </a>
+              <a v-else :href="nav.url" v-text="nav.name"></a>
+              <ul v-if="nav.dropList.length" class="dropdown-menu" role="menu">
+                <li v-for="item in nav.dropList"><a :href="item.url" v-text="item.name"></a></li>
+              </ul>
+            </li>
+          </ul>
+          <div class="nav navbar-nav navbar-right">{{userInfo.name}}<i class="fa fa-user"></i></div>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <router-view name="sidebar"></router-view>
+        </div>
+        <div class="col-md-9">
+          <router-view></router-view>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 开发页面部分end -->
+  <script type="text/javascript" src="/dist/page/doc/vue-entry.pack.js"></script>
+  <!-- <script type="text/javascript" src="/dist/page/doc/test-entry.pack.js"></script> -->
+</body>
+
+</html>
